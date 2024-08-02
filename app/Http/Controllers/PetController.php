@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pet;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PetController extends Controller
@@ -10,9 +11,9 @@ class PetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json(Pet::paginate(10)->toArray());
     }
 
     /**
@@ -28,31 +29,19 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'type_id' => 'required|integer|exists:pet_types,id',
+                'address' => 'required|string|max:255',
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json($e->getMessage(), 400);
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pet $pet)
-    {
-        //
-    }
+        $pet = Pet::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pet $pet)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pet $pet)
-    {
-        //
+        return response()->json($pet, 201);
     }
 
     /**
@@ -60,6 +49,6 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
-        //
+        $pet->delete();
     }
 }

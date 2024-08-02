@@ -20,7 +20,7 @@ class PetFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->firstname(),
             'type_id' => PetType::inRandomOrder()->first()->id,
             'address' => $this->faker->address(),
         ];
