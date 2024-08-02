@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PetController extends Controller
 {
@@ -17,17 +18,24 @@ class PetController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the total amount of pets for each type.
      */
-    public function create()
+    public function totals()
     {
-        //
+       
+        $totals = DB::table('pets')
+        ->select('pet_types.name as type', DB::raw('count(pets.type_id) as aantal'))
+        ->join('pet_types', 'pets.type_id', '=', 'pet_types.id')
+        ->groupBy('pets.type_id', 'pet_types.name')
+        ->get();
+
+        return response()->json($totals, 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         try {
             $validatedData = $request->validate([
@@ -47,8 +55,9 @@ class PetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pet $pet)
+    public function destroy(Pet $pet): JsonResponse
     {
         $pet->delete();
+        return response()->json(['message' => 'Pet ' . $pet->name . ' deleted successfully'], 200);
     }
 }

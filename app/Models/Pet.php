@@ -15,14 +15,14 @@ class Pet extends Model
 
     public function type()
     {
-        return $this->belongsTo(PetType::class);
+        return $this->belongsTo(PetType::class, 'type_id');
     }
 
     public function toArray(): array
     {
         return [
             'name' => $this->name,
-            'type' => $this->type->type,
+            'type' => $this->type->name,
             'address' => $this->address,
         ];
     }

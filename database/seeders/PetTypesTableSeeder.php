@@ -14,10 +14,10 @@ class PetTypesTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('pet_types')->insert([
-            ['type' => 'hond', 'created_at' => now(), 'updated_at' => now()],
-            ['type' => 'kat', 'created_at' => now(), 'updated_at' => now()],
-            ['type' => 'vis', 'created_at' => now(), 'updated_at' => now()],
-            ['type' => 'konijn', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'hond', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'kat', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'vis', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'konijn', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
