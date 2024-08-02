@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('type_id')->constrained();
+            $table->foreignId('type_id')->constrained()->references('id')->on('pet_types');
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
