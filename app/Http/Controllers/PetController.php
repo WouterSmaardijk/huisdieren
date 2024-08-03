@@ -46,7 +46,7 @@ class PetController extends Controller
                 'address' => 'required|string|max:255',
             ]);
         } catch (\Throwable $e) {
-            return response()->json($e->getMessage(), 400);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
 
         $pet = Pet::create($validatedData);
