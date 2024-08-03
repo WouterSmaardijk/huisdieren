@@ -24,7 +24,7 @@ class PetController extends Controller
     {
        
         $totals = DB::table('pets')
-        ->select('pet_types.name as type', DB::raw('count(pets.type_id) as aantal'))
+        ->select('pet_types.name as species', DB::raw('count(pets.type_id) as amount'))
         ->join('pet_types', 'pets.type_id', '=', 'pet_types.id')
         ->groupBy('pets.type_id', 'pet_types.name')
         ->get();

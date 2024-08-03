@@ -20,45 +20,117 @@
             <!-- Data will be inserted here by JavaScript -->
         </tbody>
     </table>
+    <div class="pagination">
+        <!-- Pagination buttons will be inserted here by JavaScript -->
+    </div>
+
+    <h2>Totaal aantal huisdieren per soort</h2>
+
+    <table id="totals-table">
+        <thead>
+            <tr>
+                <th>Soort</th>
+                <th>Aantal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('/api/pets')
-                .then(response => response.json())
-                .then(responseData => {
-                    const data = responseData.data;
-                    const petsTableBody = document.querySelector('#pets-table tbody');
-                    data.forEach(pet => {
-                        const row = document.createElement('tr');
-                        const nameCell = document.createElement('td');
-                        const typeCell = document.createElement('td');
-                        const addressCell = document.createElement('td');
-                        const deleteCell = document.createElement('td');
-                        const deleteButton = document.createElement('button');
-                        
-                        nameCell.textContent = pet.name;
-                        typeCell.textContent = pet.type;
-                        addressCell.textContent = pet.address;
-                        deleteButton.textContent = 'Delete';
-                        deleteButton.addEventListener('click', function() {
-                            fetch(`/api/pets/${pet.id}`, { method: 'DELETE' })
-                                .then(response => response.json())
-                                .then(data => {
-                                    row.remove();
-                                })
-                                .catch(error => console.error('Error deleting data:', error));
-                        });
-                        row.appendChild(nameCell);
-                        row.appendChild(typeCell);
-                        row.appendChild(addressCell);
-                        row.appendChild(deleteCell);
-                        deleteCell.appendChild(deleteButton);
+            function fetchPets(page = 1) {
+                fetch(`/api/pets?page=${page}`)
+                    .then(response => response.json())
+                    .then(responseData => {
+                        const data = responseData.data;
+                        const pagination = responseData;
+                        const petsTableBody = document.querySelector('#pets-table tbody');
+                        const paginationDiv = document.querySelector('.pagination');
 
-                        petsTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching data:', error));
+                        // Clear existing table rows and pagination buttons
+                        petsTableBody.innerHTML = '';
+                        paginationDiv.innerHTML = '';
+
+                        // Populate table with pet data
+                        data.forEach(pet => {
+                            const row = document.createElement('tr');
+                            const nameCell = document.createElement('td');
+                            const typeCell = document.createElement('td');
+                            const addressCell = document.createElement('td');
+                            const deleteCell = document.createElement('td');
+                            const deleteButton = document.createElement('button');
+
+                            nameCell.textContent = pet.name;
+                            typeCell.textContent = toUpperFirst(pet.type);
+                            addressCell.textContent = pet.address;
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.addEventListener('click', function() {
+                                fetch(`/api/delete/${pet.id}`, { method: 'DELETE' })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        row.remove();
+                                    })
+                                    .catch(error => console.error('Error deleting data:', error));
+                            });
+
+                            row.appendChild(nameCell);
+                            row.appendChild(typeCell);
+                            row.appendChild(addressCell);
+                            deleteCell.appendChild(deleteButton);
+                            row.appendChild(deleteCell);
+
+                            petsTableBody.appendChild(row);
+                        });
+
+                        // Create pagination buttons
+                        for (let i = 1; i <= pagination.last_page; i++) {
+                            const button = document.createElement('button');
+                            button.textContent = i;
+                            button.addEventListener('click', function() {
+                                fetchPets(i);
+                            });
+                            paginationDiv.appendChild(button);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            function fetchTotals() {
+                fetch('/api/pets/totals')
+                    .then(response => response.json())
+                    .then(data => {
+                        const totalsTableBody = document.querySelector('#totals-table tbody');
+
+                        // Clear existing totals table rows
+                        totalsTableBody.innerHTML = '';
+
+                        // Populate totals table with data
+                        data.forEach(total => {
+                            const row = document.createElement('tr');
+                            const speciesCell = document.createElement('td');
+                            const amountCell = document.createElement('td');
+
+                            speciesCell.textContent = toUpperFirst(total.species);
+                            amountCell.textContent = total.amount;
+
+                            row.appendChild(speciesCell);
+                            row.appendChild(amountCell);
+
+                            totalsTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching totals:', error));
+            }
+
+            // Initial fetch
+            fetchPets();
+            fetchTotals();
         });
+        function toUpperFirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     </script>
 </body>
 </html>
