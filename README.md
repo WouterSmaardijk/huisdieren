@@ -7,15 +7,15 @@ Er is ook een pagina om een nieuw huisdier toe te voegen.
 
 ## Benodigdheden
 
-- PHP >= 8.2
+- PHP
 - Composer
-- Laravel 11
+- Laravel
 
 ## Installatievereisten
 
 ### PHP installeren
 
-Zorg ervoor dat PHP >= 8.2 geïnstalleerd is. Voor installatie-instructies, zie de [officiële PHP website](https://www.php.net/manual/en/install.php).
+Zorg ervoor dat PHP geïnstalleerd is. Voor installatie-instructies, zie de [officiële PHP website](https://www.php.net/manual/en/install.php).
 
 ### Composer installeren
 
@@ -23,7 +23,7 @@ Zorg ervoor dat PHP >= 8.2 geïnstalleerd is. Voor installatie-instructies, zie 
 
 ### Laravel installeren
 
-***Installeer Laravel 11 via Composer:**
+***Installeer Laravel via Composer:**
 ```bash
 composer global require laravel/installer
 ```
@@ -36,6 +36,7 @@ git clone https://github.com/WouterSmaardijk/huisdieren.git
 **Installeer Composer dependencies**
 ```bash
 cd huisdieren
+composer install
 ```
 
 **Kopieer het voorbeeld .env.example bestand en hernoem dit naar .env**
@@ -44,21 +45,16 @@ cp .env.example .env
 ```
 
 **Stel de database in:**
-    - Maak een database genaamd `huisdieren`.
-    - Werk het `.env` bestand bij met je databasegegevens:
-        
-        ```env
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE=huidieren
-        DB_USERNAME=root
-        DB_PASSWORD=root
-        ```
+- Werk het `.env` bestand bij met je databasegegevens
         
 **Voer de database migraties uit en seed de database:**
 ```bash
 php artisan migrate --seed
+```
+
+**Genereer een application key:**
+```bash
+php artisan key:generate
 ```
 
 **Start de applicatie:**
