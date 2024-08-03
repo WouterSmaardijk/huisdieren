@@ -1,4 +1,4 @@
-# Huidieren Project
+# Huisdieren Project
 
 Dit is een opdracht om een kleine webapplicatie te maken voor het beheren van huisdieren. Ik heb gebruik gemaakt van Laravel, Composer en JavaScript.
 
@@ -44,7 +44,7 @@ cp .env.example .env
 ```
 
 **Stel de database in:**
-    - Maak een database genaamd `huidieren`.
+    - Maak een database genaamd `huisdieren`.
     - Werk het `.env` bestand bij met je databasegegevens:
         
         ```env
