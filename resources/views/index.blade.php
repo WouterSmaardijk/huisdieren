@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>Naam</th>
-                <th>Soort</th>
+                <th>Type</th>
                 <th>Adres</th>
                 <th></th>
             </tr>
@@ -29,7 +29,7 @@
     <table id="totals-table">
         <thead>
             <tr>
-                <th>Soort</th>
+                <th>Type</th>
                 <th>Aantal</th>
             </tr>
         </thead>

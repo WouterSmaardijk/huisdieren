@@ -14,7 +14,7 @@ class PetController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Pet::orderBy('name')->paginate(10)->toArray());
+        return response()->json(Pet::with('type')->orderBy('name')->paginate(10)->toArray());
     }
 
     /**
