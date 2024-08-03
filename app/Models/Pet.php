@@ -21,6 +21,7 @@ class Pet extends Model
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type->name,
             'address' => $this->address,
