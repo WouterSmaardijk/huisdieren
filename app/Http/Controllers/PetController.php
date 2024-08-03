@@ -14,7 +14,7 @@ class PetController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Pet::paginate(10)->toArray());
+        return response()->json(Pet::orderBy('name')->paginate(10)->toArray());
     }
 
     /**
@@ -26,6 +26,8 @@ class PetController extends Controller
         $totals = DB::table('pets')
         ->select('pet_types.name as species', DB::raw('count(pets.type_id) as amount'))
         ->join('pet_types', 'pets.type_id', '=', 'pet_types.id')
+        ->whereNull('pets.deleted_at')
+        ->whereNull('pet_types.deleted_at')
         ->groupBy('pets.type_id', 'pet_types.name')
         ->get();
 

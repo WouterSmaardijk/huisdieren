@@ -67,10 +67,11 @@
                             addressCell.textContent = pet.address;
                             deleteButton.textContent = 'Delete';
                             deleteButton.addEventListener('click', function() {
-                                fetch(`/api/delete/${pet.id}`, { method: 'DELETE' })
+                                fetch(`/api/pets/${pet.id}`, { method: 'DELETE' })
                                     .then(response => response.json())
                                     .then(data => {
                                         row.remove();
+                                        fetchTotals();
                                     })
                                     .catch(error => console.error('Error deleting data:', error));
                             });
@@ -133,4 +134,47 @@
         }
     </script>
 </body>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .pagination button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background-color: #45a049;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </html>
