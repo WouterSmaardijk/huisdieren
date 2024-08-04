@@ -7,7 +7,7 @@ Verder is er een pagina om een nieuw huisdier toe te voegen.
 
 ## Benodigdheden
 
-- PHP => 8.2
+- PHP >= 8.2
 - Composer
 - Database Server
 
