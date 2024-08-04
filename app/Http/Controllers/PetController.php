@@ -20,7 +20,7 @@ class PetController extends Controller
     /**
      * Show the total amount of pets for each type.
      */
-    public function totals()
+    public function totals(): JsonResponse
     {
        
         $totals = DB::table('pets')

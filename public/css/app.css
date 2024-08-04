@@ -1,0 +1,34 @@
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.navbar-item.is-active {
+    border-bottom: 2px solid white;
+}
+.fixed-width {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.fixed-width th, .fixed-width td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.col-name {
+    width: 30%;
+}
+
+.col-type {
+    width: 10%;
+}
+
+.col-address {
+    width: 55%;
+}
+
+.col-actions {
+    width: 5%;
+}

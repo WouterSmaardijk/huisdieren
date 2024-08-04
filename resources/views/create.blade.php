@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nieuw Huisdier</title>
-</head>
+<x-head>
+</x-head>
 <body>
-    <h1>Nieuw Huisdier</h1>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a class="active-tab" href="/create">Nieuw huisdier</a>
-        </nav>
-    </header>
-
-    <form id="create-pet-form">
-        <div>
-            <label for="name">Naam:</label>
-            <input type="text" id="name" name="name" required>
+    <x-header>
+    </x-header>
+    <div class="container">
+        <div class="section">
+            <div class="title is-5 has-text-white">Huisdier Toevoegen</div>
+            <form id="create-pet-form">
+                <div class="field">
+                    <label class="label" for="name">Naam:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="name" name="name" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="type">Type:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="type" name="type" required>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="label" for="address">Adres:</label>
+                    <div class="control">
+                        <textarea id="address" name="address" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary mt-4" type="submit">Toevoegen</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="type">Type:</label>
-            <select id="type" name="type" required>
-            </select>
-        </div>
-        <div>
-            <label for="address">Adres:</label>
-            <textarea id="address" name="address" rows="4" required></textarea>
-        </div>
-        <button type="submit">Toevoegen</button>
-    </form>
-
+    </div>
     <script>
         fetch('/api/pets/types')
             .then(response => response.json())
@@ -82,57 +89,5 @@
         }
 
     </script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        header {
-            margin-bottom: 20px;
-        }
-        nav a {
-            margin-right: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            color: white;
-            background-color:#4CAF50;
-            padding: 5px;
-            border: none;
-        }
-        nav a.active-tab {
-            background-color: #007bff;
-            border: solid 3px black;
-        }
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        form div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
 </body>
 </html>
