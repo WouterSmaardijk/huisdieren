@@ -2,8 +2,8 @@
 
 Dit is een opdracht om een kleine webapplicatie te maken voor het beheren van huisdieren. Ik heb gebruik gemaakt van Laravel, Composer en JavaScript. De styling is gedaan met Bulma.
 
-Er is een index pagina met een overzicht van alle huisdieren, met pagination en mogelijkheid huisdieren te verwijderen, en een overzicht met hoeveel huisdieren er van ieder type zijn.
-Er is ook een pagina om een nieuw huisdier toe te voegen.
+Er is een index pagina met een overzicht van alle huisdieren, met paginering en mogelijkheid huisdieren te verwijderen, en een overzicht met hoeveel huisdieren er van ieder type zijn.
+Verder is er een pagina om een nieuw huisdier toe te voegen.
 
 ## Benodigdheden
 
