@@ -9,7 +9,6 @@ Er is ook een pagina om een nieuw huisdier toe te voegen.
 
 - PHP
 - Composer
-- Laravel
 
 ## Installatievereisten
 
@@ -20,13 +19,6 @@ Zorg ervoor dat PHP geïnstalleerd is. Voor installatie-instructies, zie de [off
 ### Composer installeren
 
 **Download en installeer Composer van de [officiële Composer website](https://getcomposer.org/download/).**
-
-### Laravel installeren
-
-***Installeer Laravel via Composer:**
-```bash
-composer global require laravel/installer
-```
 
 **Clone de repository:**
 ```bash
