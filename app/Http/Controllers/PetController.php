@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pet;
+use App\Models\PetType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class PetController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get a list of pets with their type.
      */
     public function index(): JsonResponse
     {
@@ -22,20 +23,22 @@ class PetController extends Controller
      */
     public function totals(): JsonResponse
     {
-       
-        $totals = DB::table('pets')
-        ->select('pet_types.name as species', DB::raw('count(pets.type_id) as amount'))
-        ->join('pet_types', 'pets.type_id', '=', 'pet_types.id')
-        ->whereNull('pets.deleted_at')
-        ->whereNull('pet_types.deleted_at')
-        ->groupBy('pets.type_id', 'pet_types.name')
-        ->get();
+        $totals = PetType::select('name as species')
+        ->withCount('pets')
+        ->whereNull('deleted_at')
+        ->get()
+        ->map(function ($petType) {
+            return [
+                'species' => $petType->species,
+                'amount' => $petType->pets_count,
+            ];
+        });
 
         return response()->json($totals, 200);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created pet in the database.
      */
     public function store(Request $request): JsonResponse
     {
@@ -45,17 +48,17 @@ class PetController extends Controller
                 'type_id' => 'required|integer|exists:pet_types,id',
                 'address' => 'required|string|max:255',
             ]);
+            
+            $pet = Pet::create($validatedData);
+
+            return response()->json($pet, 201);
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()], 400);
         }
-
-        $pet = Pet::create($validatedData);
-
-        return response()->json($pet, 201);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Perform a soft delete on the specified pet.
      */
     public function destroy(Pet $pet): JsonResponse
     {
