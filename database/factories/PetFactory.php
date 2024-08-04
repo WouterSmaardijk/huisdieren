@@ -22,7 +22,7 @@ class PetFactory extends Factory
         return [
             'name' => $this->faker->firstname(),
             'type_id' => PetType::inRandomOrder()->first()->id,
-            'address' => $this->faker->address(),
+            'address' => $this->faker->streetAddress().' '.$this->faker->city(),
         ];
     }
 }

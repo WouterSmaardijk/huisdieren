@@ -27,7 +27,7 @@
                 <div>
                     <label class="label" for="address">Adres:</label>
                     <div class="control">
-                        <textarea id="address" name="address" rows="4" required></textarea>
+                        <textarea id="address" class="textarea" name="address" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="field">
