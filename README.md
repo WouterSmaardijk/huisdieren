@@ -7,8 +7,9 @@ Er is ook een pagina om een nieuw huisdier toe te voegen.
 
 ## Benodigdheden
 
-- PHP
+- PHP => 8.2
 - Composer
+- Database Server
 
 ## Installatievereisten
 
@@ -38,11 +39,21 @@ cp .env.example .env
 
 **Stel de database in:**
 - Werk het `.env` bestand bij met je databasegegevens
-        
+```
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=huidieren
+DB_USERNAME=root
+DB_PASSWORD=root
+```      
+
+**Maak eventueel een database aan met de naam `huisdieren` als dit bij de migratie niet automatisch gedaan wordt**
+
 **Voer de database migraties uit en seed de database**
 ```bash
 php artisan migrate --seed
-```
+```  
 
 **Genereer een application key:**
 ```bash
