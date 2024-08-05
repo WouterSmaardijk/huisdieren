@@ -43,7 +43,7 @@ cp .env.example .env
 DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE=huidieren
+DB_DATABASE=huisdieren
 DB_USERNAME=root
 DB_PASSWORD=root
 ```      
